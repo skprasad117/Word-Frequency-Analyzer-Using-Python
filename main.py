@@ -10,8 +10,8 @@ def start():
 
 # Create the main window
 window = tk.Tk()
-window.geometry("800x600")
-window.title("Word Frequency Analyzer")
+window.geometry("600x600")
+window.title("Words Frequency Analyzer - https://github.com/skprasad117")
 
 label = tk.Label(window, text="Enter the String to Analyze")
 label.pack()

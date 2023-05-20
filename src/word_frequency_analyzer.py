@@ -75,7 +75,7 @@ class WordFrequencyAnalyzer:
                     highest.append(word)
                     highest_len = WordFrequencyAnalyzer.word_counts[word]
             WordFrequencyAnalyzer.highest_freq["Word"] = highest
-            WordFrequencyAnalyzer.highest_freq["frequencty"] = highest_len
+            WordFrequencyAnalyzer.highest_freq["frequency"] = highest_len
         except Exception as e:
             raise CustomException(e, sys)
     
@@ -112,11 +112,11 @@ class WordFrequencyAnalyzer:
                 for word in WordFrequencyAnalyzer.highest_freq[index]:
                     string = string + "'"+word+"', "
             else:
-                string = WordFrequencyAnalyzer.highest_freq[index][0]
+                string = "'"+WordFrequencyAnalyzer.highest_freq[index][0]+"'"
             string =string.removesuffix(",")
             if index == 'Word':
                 words_freq = string
             else:
                 words_len = string
-                
-        WordFrequencyAnalyzer.result = f"From the given string we can note that the most frequent words are {words_freq} and words having maxium length from most frequent words are {words_len} and its/there corresponding length is {WordFrequencyAnalyzer.highest_freq['highest_length']}"
+        logging.info(WordFrequencyAnalyzer.highest_freq)        
+        WordFrequencyAnalyzer.result = f"From the given string we can note that the most frequent words are {words_freq} and they appeard {WordFrequencyAnalyzer.highest_freq['frequency']} times, and words having maxium length from most frequent words are {words_len} and its/there corresponding length is {WordFrequencyAnalyzer.highest_freq['highest_length']}"
