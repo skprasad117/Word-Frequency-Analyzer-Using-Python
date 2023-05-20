@@ -1,5 +1,6 @@
 from src.logger import logging
 from src.exception import CustomException
+import os, sys
 class WordFrequencyAnalyzer:
     unique_words_list = list()
     word_counts = dict()
@@ -24,7 +25,7 @@ class WordFrequencyAnalyzer:
             self.__words_frequency()
             self.__highest_freq()
             self.__highest_length()
-            self.result()
+            self.__render_result()
         except Exception as e:
             raise CustomException(e, sys)
     
@@ -102,21 +103,24 @@ class WordFrequencyAnalyzer:
             WordFrequencyAnalyzer.highest_freq["highest_length"] = length
         except Exception as e:
             raise CustomException(e, sys)   
-    def result(self):
-        words_freq = str()
-        words_len = str()
-        for index in ['Word','highest_len_Words']:
-            print(index)
-            if len(WordFrequencyAnalyzer.highest_freq[index])>1:
-                string = ""
-                for word in WordFrequencyAnalyzer.highest_freq[index]:
-                    string = string + "'"+word+"', "
-            else:
-                string = "'"+WordFrequencyAnalyzer.highest_freq[index][0]+"'"
-            string =string.removesuffix(",")
-            if index == 'Word':
-                words_freq = string
-            else:
-                words_len = string
-        logging.info(WordFrequencyAnalyzer.highest_freq)        
-        WordFrequencyAnalyzer.result = f"From the given string we can note that the most frequent words are {words_freq} and they appeard {WordFrequencyAnalyzer.highest_freq['frequency']} times, and words having maxium length from most frequent words are {words_len} and its/there corresponding length is {WordFrequencyAnalyzer.highest_freq['highest_length']}"
+    def __render_result(self):
+        try:
+            words_freq = str()
+            words_len = str()
+            for index in ['Word','highest_len_Words']:
+                print(index)
+                if len(WordFrequencyAnalyzer.highest_freq[index])>1:
+                    string = ""
+                    for word in WordFrequencyAnalyzer.highest_freq[index]:
+                        string = string + "'"+word+"', "
+                else:
+                    string = "'"+WordFrequencyAnalyzer.highest_freq[index][0]+"'"
+                string =string.removesuffix(",")
+                if index == 'Word':
+                    words_freq = string
+                else:
+                    words_len = string
+            logging.info(WordFrequencyAnalyzer.highest_freq)        
+            WordFrequencyAnalyzer.result = f"""There are total {len(WordFrequencyAnalyzer.__words_list)} words out of which {len(WordFrequencyAnalyzer.unique_words_list)} are unique words \n\n From the given string we can note that the most frequent words are {words_freq} and they appeard {WordFrequencyAnalyzer.highest_freq['frequency']} times, and words having maxium length from most frequent words are {words_len} and its/there corresponding length is {WordFrequencyAnalyzer.highest_freq['highest_length']}"""
+        except Exception as e:
+            raise CustomException(e,sys)
